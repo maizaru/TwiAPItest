@@ -1,4 +1,4 @@
-import tkinter,DMpost
+import tkinter,DMpost,sqliteT,sys
 
 root = tkinter.Tk()
 root.geometry('300x200')
@@ -37,7 +37,12 @@ def callback():
     str_input[2]=txt3.get()
     fluctuation = scale.get()
     print(str_input)
-    print(fluctuation)
+    DMpost.DMSubmit(str_input[0],fluctuation)
+    for i in range(len(DMpost.DMList)):
+        sqliteT.Execute(str(DMpost.userName[i]),str(DMpost.DMList[i]),str_input[0])
+    root.destroy()
+    sys.exit()
+
 
 btn = tkinter.Button(root,text='決定',command=callback)
 btn.place(x=150,y=150)
